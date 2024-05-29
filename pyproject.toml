@@ -1,0 +1,22 @@
+[project]
+name = "medim"
+version = "0.1"
+requires-python = ">=3.9"
+description = "medim is a all-in-one tool for medical image segmentation."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Haoyu Wang", email = "small_dark@sina.com"},
+]
+
+[project.urls]
+Homepage = "https://github.com/uni-medical/Pytorch-Medical-Image-Models"
+
+[build-system]
+requires = ["setuptools>=67.8.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
