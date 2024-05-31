@@ -1,1 +1,1 @@
-from .example import add_one
+from .models import create_model
