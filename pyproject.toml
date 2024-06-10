@@ -8,6 +8,13 @@ license = { file = "LICENSE" }
 authors = [
     { name = "Haoyu Wang", email = "small_dark@sina.com"},
 ]
+dependencies = [
+    "appdirs",
+    "numpy",
+    "torch>=2.1.2",
+    "einops",
+    "huggingface_hub"
+]
 
 [project.urls]
 Homepage = "https://github.com/uni-medical/Pytorch-Medical-Image-Models"

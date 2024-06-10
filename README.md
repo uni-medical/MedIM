@@ -9,7 +9,12 @@ You can use this cmd to install this toolkit via pip:
 ```
 pip install git+https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
 ```
-
+For developer who wanna adding custom models, you can install vis:
+```
+git clone https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
+cd Pytorch-Medical-Image-Models
+pip install -e .
+```
 Then you can use this repo to get pytorch models like `timm`:
 ```
 import medim
@@ -20,6 +25,9 @@ input_tensor = torch.randn(1, 1, 128, 128, 128)
 output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
 ```
+
+More examples are in [quick_start](examples\quick_start.py).
+
 ## Roadmap
 
 The loading of pre-training is still working in progress.
