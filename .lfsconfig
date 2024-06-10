@@ -1,0 +1,2 @@
+[lfs]
+    fetchexclude = "tests/data/small_ep4k.model"
