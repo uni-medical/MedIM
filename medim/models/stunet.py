@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from ._registry import register_model
-from ._pretrain import load_nnunet_pretrained_weights
+from ._pretrain import load_pretrained_weights
 
 class Decoder(nn.Module):
     def __init__(self):
@@ -133,7 +133,7 @@ def create_stunet_small(
     model = STUNet(1, 105, depth=[1]*6, dims= [16 * x for x in [1, 2, 4, 8, 16, 16]], 
                    pool_op_kernel_sizes=strides, conv_kernel_sizes=[[3,3,3]] * 6, enable_deep_supervision=False)
     if(pretrained):
-        load_nnunet_pretrained_weights(model, checkpoint_path)
+        load_pretrained_weights(model, checkpoint_path)
         
     return model
 
