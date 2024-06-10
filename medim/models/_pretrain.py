@@ -43,12 +43,12 @@ def load_nnunet_pretrained_weights(network, fname, verbose=False):
                            (k in model_dict) and (model_dict[k].shape == pretrained_dict[k].shape)}
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
-        print("################### Loading pretrained weights from file ", fname, '###################')
+        print("Loading pretrained weights from file ", fname)
         if verbose:
             print("Below is the list of overlapping blocks in pretrained model and nnUNet architecture:")
             for key, _ in pretrained_dict.items():
                 print(key)
-        print("################### Done ###################")
+        print("Done")
         network.load_state_dict(model_dict)
     else:
         raise RuntimeError("Pretrained weights are not compatible with the current network architecture")
@@ -98,5 +98,4 @@ def load_pretrained_weights(model, checkpoint_path):
     ckpt_local_path = checkpoint_path
     if(checkpoint_path.startswith("https://huggingface.co")):
         ckpt_local_path = check_and_download_weights_from_hf_url(checkpoint_path)
-    print("loading checkpoint ...")
     load_nnunet_pretrained_weights(model, ckpt_local_path)

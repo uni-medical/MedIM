@@ -29,6 +29,6 @@ def stunet_with_huggingface_checkpoint():
     print("Output tensor shape:", output_tensor.shape)
 
 if __name__ == "__main__":
-    # stunet_simple_example()
-    # stunet_with_local_checkpoint()
+    stunet_simple_example()
+    stunet_with_local_checkpoint()
     stunet_with_huggingface_checkpoint()
