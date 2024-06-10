@@ -26,7 +26,7 @@ output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
 ```
 
-More examples are in [quick_start](examples\quick_start.py).
+More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medical-Image-Models/blob/main/examples/quick_start.py).
 
 ## Roadmap
 
