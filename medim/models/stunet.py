@@ -137,4 +137,43 @@ def create_stunet_small(
         
     return model
 
+@register_model("STU-Net-B")
+def create_stunet_base(     
+    pretrained: bool = False,
+    checkpoint_path: str = '',
+):
+    strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
+    model = STUNet(1, 105, depth=[1]*6, dims= [32 * x for x in [1, 2, 4, 8, 16, 16]], 
+                   pool_op_kernel_sizes=strides, conv_kernel_sizes=[[3,3,3]] * 6, enable_deep_supervision=False)
+    if(pretrained):
+        load_pretrained_weights(model, checkpoint_path)
+        
+    return model
+
+@register_model("STU-Net-L")
+def create_stunet_large(     
+    pretrained: bool = False,
+    checkpoint_path: str = '',
+):
+    strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
+    model = STUNet(1, 105, depth=[2]*6, dims= [64 * x for x in [1, 2, 4, 8, 16, 16]], 
+                   pool_op_kernel_sizes=strides, conv_kernel_sizes=[[3,3,3]] * 6, enable_deep_supervision=False)
+    if(pretrained):
+        load_pretrained_weights(model, checkpoint_path)
+        
+    return model
+
+@register_model("STU-Net-H")
+def create_stunet_huge(     
+    pretrained: bool = False,
+    checkpoint_path: str = '',
+):
+    strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
+    model = STUNet(1, 105, depth=[3]*6, dims= [96 * x for x in [1, 2, 4, 8, 16, 16]], 
+                   pool_op_kernel_sizes=strides, conv_kernel_sizes=[[3,3,3]] * 6, enable_deep_supervision=False)
+    if(pretrained):
+        load_pretrained_weights(model, checkpoint_path)
+        
+    return model
+
 

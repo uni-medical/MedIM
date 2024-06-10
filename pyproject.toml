@@ -13,7 +13,8 @@ dependencies = [
     "numpy",
     "torch>=2.1.2",
     "einops",
-    "huggingface_hub"
+    "huggingface_hub",
+    "pytest",
 ]
 
 [project.urls]
