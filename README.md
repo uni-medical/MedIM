@@ -9,45 +9,42 @@ You can use this cmd to install this toolkit via pip:
 ```
 pip install git+https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
 ```
-For developer who wanna adding custom models, you can install vis:
-```
-git clone https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
-cd Pytorch-Medical-Image-Models
-pip install -e .
-```
+> For developer who wanna adding custom models, you can install via:
+> ```
+> git clone https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
+> cd Pytorch-Medical-Image-Models
+> pip install -e .
+> ```
 Then you can use this repo to get pytorch models like `timm`:
 ```
 import medim
 
-model = medim.create_model("STU-Net-S")
+# use default setting, without pretrain
+model = medim.create_model("STU-Net-S") 
+
+# use local checkpoint
+model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="../tests/data/small_ep4k.model") 
+
+# use huggingface checkpoint, will download from huggingface
+model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model") 
 
 input_tensor = torch.randn(1, 1, 128, 128, 128)
 output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
 ```
 
+> if network issues encounted, we recommand use huggingface mirror
+> ```
+> set HF_ENDPOINT=https://hf-mirror.com (cmd)
+> $env:HF_ENDPOINT="https://hf-mirror.com" (powershell)
+> ```
+
+
 More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medical-Image-Models/blob/main/examples/quick_start.py).
 
-## Roadmap
+## Roadmap & TO-DO
 
-The loading of pre-training is still working in progress.
+We will first support more pre-training of STU-Net on different datasets. And the next step is to support more pre-trained medical image models.
 
-An ideal version of this repo is like this:
-```
-import medim
-
-# all-in-one interface to get pretrained pytorch models
-model = medim.create_model("STU-Net-S", pretrained_dataset="Totalsegmentator")
-# model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path=<local_path/huggingface_path>)
-
-# torch.transforms for data preprocess
-transforms = xxxx
-
-# easy to load data and infer with a medical-image-prefered style
-for image in medim.load_image(<image_dir>, transforms=transforms):
-    pred = medim.sliding_window_inference(model, image)
-    # pred = medim.resize_and_inference(model, image)
-    
-# then you can validate with your own workflow and metrics
-```
+A easy-to-use interface compatible for MONAI/nnU-Net is still under development. If developed, you can use a more elegant way to deploy medical image models with Python/PyTorch ecosystem.
 
