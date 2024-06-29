@@ -1,4 +1,4 @@
-# Pytorch-Medical-Image-Models
+# MedIM: Pytorch-Medical-Image-Models
 
 A collection of PyTorch medical image pre-trained models. 
 This repo aims to provide a unified interface for comparing and deploying these models. 
