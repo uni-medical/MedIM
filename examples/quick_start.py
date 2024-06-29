@@ -10,23 +10,34 @@
 import torch
 import medim
 
+
 def stunet_simple_example():
     model = medim.create_model("STU-Net-S")
     input_tensor = torch.randn(1, 1, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
 
+
 def stunet_with_local_checkpoint():
-    model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="../tests/data/small_ep4k.model")
+    model = medim.create_model(
+        "STU-Net-S",
+        pretrained=True,
+        checkpoint_path="../tests/data/small_ep4k.model")
     input_tensor = torch.randn(1, 1, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
 
+
 def stunet_with_huggingface_checkpoint():
-    model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model")
+    model = medim.create_model(
+        "STU-Net-S",
+        pretrained=True,
+        checkpoint_path=
+        "https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model")
     input_tensor = torch.randn(1, 1, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
+
 
 if __name__ == "__main__":
     stunet_simple_example()
