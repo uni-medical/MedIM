@@ -1,7 +1,6 @@
 # MedIM: Pytorch-Medical-Image-Models
 
-A collection of PyTorch medical image pre-trained models. 
-This repo aims to provide a unified interface for comparing and deploying these models. 
+A collection of PyTorch medical image pre-trained models. This repository aims to provide a unified interface for comparing and deploying these models.
 
 ## Quick Start
 
@@ -33,7 +32,7 @@ output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
 ```
 
-> if network issues encounted, we recommand use huggingface mirror
+> If network issues are encountered, we recommend using the Hugging Face mirror:
 > ```
 > set HF_ENDPOINT=https://hf-mirror.com (cmd)
 > $env:HF_ENDPOINT="https://hf-mirror.com" (powershell)
@@ -44,7 +43,7 @@ More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medica
 
 ## Roadmap & TO-DO
 
-We will first support more pre-training of STU-Net on different datasets. And the next step is to support more pre-trained medical image models.
+We will first support more pre-training of STU-Net on different datasets. The next step is to support more pre-trained medical image models.
 
-A easy-to-use interface compatible for MONAI/nnU-Net is still under development. If developed, you can use a more elegant way to deploy medical image models with Python/PyTorch ecosystem.
+An easy-to-use interface compatible with MONAI/nnU-Net is still under development. Once developed, you will be able to deploy medical image models more elegantly within the Python/PyTorch ecosystem.
 
