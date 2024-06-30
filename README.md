@@ -32,11 +32,13 @@ output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
 ```
 
+> **Tips**
 > If network issues are encountered, we recommend using the Hugging Face mirror:
 > ```
 > set HF_ENDPOINT=https://hf-mirror.com (cmd)
 > $env:HF_ENDPOINT="https://hf-mirror.com" (powershell)
 > ```
+> Besides, you can use `MEDIM_CKPT_DIR` environment variable to set custom path for huggingface model downloading.
 
 
 More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medical-Image-Models/blob/main/examples/quick_start.py).

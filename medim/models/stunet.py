@@ -77,13 +77,13 @@ class Upsample_Layer_nearest(nn.Module):
 class STUNet(nn.Module):
 
     def __init__(self,
-                 input_channels,
-                 num_classes,
+                 input_channels=1,
+                 num_classes=105,
                  depth=[1, 1, 1, 1, 1, 1],
                  dims=[32, 64, 128, 256, 512, 512],
                  pool_op_kernel_sizes=None,
                  conv_kernel_sizes=None,
-                 enable_deep_supervision=True):
+                 enable_deep_supervision=False):
         super().__init__()
         self.conv_op = nn.Conv3d
         self.input_channels = input_channels
@@ -196,15 +196,15 @@ class STUNet(nn.Module):
 def create_stunet_small(
     pretrained: bool = False,
     checkpoint_path: str = '',
-):
+    **kwargs,
+) -> STUNet:
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(input_channels=1,
-                   num_classes=105,
-                   depth=[1] * 6,
+    model = STUNet(depth=[1] * 6,
                    dims=[16 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
                    conv_kernel_sizes=[[3, 3, 3]] * 6,
-                   enable_deep_supervision=False)
+                   enable_deep_supervision=False,
+                   **kwargs)
     if (pretrained):
         load_pretrained_weights(model, checkpoint_path)
 
@@ -215,15 +215,15 @@ def create_stunet_small(
 def create_stunet_base(
     pretrained: bool = False,
     checkpoint_path: str = '',
-):
+    **kwargs,
+) -> STUNet:
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(input_channels=1,
-                   num_classes=105,
-                   depth=[1] * 6,
+    model = STUNet(depth=[1] * 6,
                    dims=[32 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
                    conv_kernel_sizes=[[3, 3, 3]] * 6,
-                   enable_deep_supervision=False)
+                   enable_deep_supervision=False,
+                   **kwargs)
     if (pretrained):
         load_pretrained_weights(model, checkpoint_path)
 
@@ -234,15 +234,15 @@ def create_stunet_base(
 def create_stunet_large(
     pretrained: bool = False,
     checkpoint_path: str = '',
-):
+    **kwargs,
+) -> STUNet:
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(input_channels=1,
-                   num_classes=105,
-                   depth=[2] * 6,
+    model = STUNet(depth=[2] * 6,
                    dims=[64 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
                    conv_kernel_sizes=[[3, 3, 3]] * 6,
-                   enable_deep_supervision=False)
+                   enable_deep_supervision=False,
+                   **kwargs)
     if (pretrained):
         load_pretrained_weights(model, checkpoint_path)
 
@@ -253,15 +253,15 @@ def create_stunet_large(
 def create_stunet_huge(
     pretrained: bool = False,
     checkpoint_path: str = '',
-):
+    **kwargs,
+) -> STUNet:
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(input_channels=1,
-                   num_classes=105,
-                   depth=[3] * 6,
+    model = STUNet(depth=[3] * 6,
                    dims=[96 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
                    conv_kernel_sizes=[[3, 3, 3]] * 6,
-                   enable_deep_supervision=False)
+                   enable_deep_supervision=False,
+                   **kwargs)
     if (pretrained):
         load_pretrained_weights(model, checkpoint_path)
 

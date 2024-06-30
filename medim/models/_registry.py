@@ -1,10 +1,13 @@
+import os
 from typing import Any, Callable, Dict
 import os.path as osp
 import appdirs
 
 _model_entrypoints: Dict[str, Callable[..., Any]] = {
 }  # mapping of model names to architecture entrypoint fns
-_ckpt_root_dir = appdirs.user_data_dir("checkpoint", "medim")
+_ckpt_root_dir = os.environ["MEDIM_CKPT_DIR"] if (
+    "MEDIM_CKPT_DIR" in os.environ) else appdirs.user_data_dir(
+        "checkpoint", "medim")
 
 
 def register_model(model_name):

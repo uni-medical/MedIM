@@ -12,6 +12,18 @@ _huggingface_model_links = {
             repo_id="ziyanhuang/STU-Net",
             filename="base_ep4k.model",
         ),
+        "CT-ORG":
+        dict(
+            repo_id="blueyo0/STU-Net_CT-ORG",
+            filename="base_ep1k.model",
+            num_classes=7,
+        ),
+        "FeTA21":
+        dict(
+            repo_id="blueyo0/STU-Net_FeTA21",
+            filename="base_ep1k.model",
+            num_classes=8,
+        ),
     },
     "STU-Net-L": {
         "TotalSegmentator":

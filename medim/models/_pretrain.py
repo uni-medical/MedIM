@@ -15,21 +15,21 @@ def load_nnunet_pretrained_weights(network, fname, verbose=False):
         saved_model = torch.load(fname, map_location=torch.device('cpu'))
     pretrained_dict = saved_model['state_dict']
 
-    new_state_dict = {}
-
     # if state dict comes from nn.DataParallel but we use non-parallel model here then the state dict keys do not
     # match. Use heuristic to make it match
+    new_state_dict = {}
     for k, value in pretrained_dict.items():
         key = k
         # remove module. prefix from DDP models
         if key.startswith('module.'):
             key = key[7:]
         new_state_dict[key] = value
-
     pretrained_dict = new_state_dict
 
+    # check all conv_blocks to be consistent
     model_dict = network.state_dict()
     ok = True
+    error_msg = ""
     for key, _ in model_dict.items():
         if ('conv_blocks' in key):
             if (key in pretrained_dict) and (model_dict[key].shape
@@ -37,29 +37,21 @@ def load_nnunet_pretrained_weights(network, fname, verbose=False):
                 continue
             else:
                 ok = False
+                error_msg = f"{key} not in pretraining or shape {model_dict[key].shape} != expected shape {pretrained_dict[key].shape}"
                 break
 
     # filter unnecessary keys
     if ok:
         pretrained_dict = {
             k: v
-            for k, v in pretrained_dict.items() if (k in model_dict) and (
-                model_dict[k].shape == pretrained_dict[k].shape)
+            for k, v in pretrained_dict.items() if (k in model_dict)
         }
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
-        print("Loading pretrained weights from file ", fname)
-        if verbose:
-            print(
-                "Below is the list of overlapping blocks in pretrained model and nnUNet architecture:"
-            )
-            for key, _ in pretrained_dict.items():
-                print(key)
-        print("Done")
         network.load_state_dict(model_dict)
     else:
         raise RuntimeError(
-            "Pretrained weights are not compatible with the current network architecture"
+            "Pretrained weights are not compatible with the current network architecture, error: "+error_msg
         )
 
 
