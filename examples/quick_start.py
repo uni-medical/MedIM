@@ -27,6 +27,7 @@ def stunet_with_local_checkpoint():
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
 
+
 def stunet_with_local_checkpoint_and_args():
     model = medim.create_model(
         "STU-Net-B",

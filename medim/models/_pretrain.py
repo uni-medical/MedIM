@@ -51,8 +51,8 @@ def load_nnunet_pretrained_weights(network, fname, verbose=False):
         network.load_state_dict(model_dict)
     else:
         raise RuntimeError(
-            "Pretrained weights are not compatible with the current network architecture, error: "+error_msg
-        )
+            "Pretrained weights are not compatible with the current network architecture, error: "
+            + error_msg)
 
 
 def check_and_download_weights(model_name, pretrained_dataset):
