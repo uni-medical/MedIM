@@ -3,7 +3,7 @@
 A collection of PyTorch medical image pre-trained models. This repository aims to provide a unified interface for comparing and deploying these models.
 
 ## Quick Start
-
+### Setup Environment
 You can use this cmd to install this toolkit via pip:
 ```
 pip install git+https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
@@ -14,22 +14,38 @@ pip install git+https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
 > cd Pytorch-Medical-Image-Models
 > pip install -e .
 > ```
-Then you can use this repo to get pytorch models like `timm`:
+
+### Example Usage
+First, let us import `medim`.
 ```
 import medim
+```
+You have four ways to create a PyTorch-compatible model with `create_model`:
 
-# use default setting, without pretraining
+**1. use default setting, without pretraining**
+```
 model = medim.create_model("STU-Net-S") 
-
-# use checkpoint pretrained on validated datasets
+```
+**2. use checkpoint pretrained on validated datasets**
+```
 model = medim.create_model("STU-Net-B", dataset="BraTS21")
-
-# use local checkpoint
-model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="../tests/data/small_ep4k.model") 
-
-# use huggingface checkpoint, will download from huggingface
-model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model") 
-
+```
+**3. use local checkpoint**
+```
+model = medim.create_model(
+            "STU-Net-S",
+            pretrained=True,
+            checkpoint_path="../tests/data/small_ep4k.model") 
+```
+**4. use huggingface checkpoint, will download from huggingface**
+```
+model = medim.create_model(
+            "STU-Net-S",
+            pretrained=True,
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model") 
+```
+Then, you can use it as you like.
+```
 input_tensor = torch.randn(1, 1, 128, 128, 128)
 output_tensor = model(input_tensor)
 print("Output tensor shape:", output_tensor.shape)
