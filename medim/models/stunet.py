@@ -198,8 +198,8 @@ def create_stunet_small(
     checkpoint_path: str = '',
 ):
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(1,
-                   105,
+    model = STUNet(input_channels=1,
+                   num_classes=105,
                    depth=[1] * 6,
                    dims=[16 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -217,8 +217,8 @@ def create_stunet_base(
     checkpoint_path: str = '',
 ):
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(1,
-                   105,
+    model = STUNet(input_channels=1,
+                   num_classes=105,
                    depth=[1] * 6,
                    dims=[32 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -236,8 +236,8 @@ def create_stunet_large(
     checkpoint_path: str = '',
 ):
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(1,
-                   105,
+    model = STUNet(input_channels=1,
+                   num_classes=105,
                    depth=[2] * 6,
                    dims=[64 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -255,8 +255,8 @@ def create_stunet_huge(
     checkpoint_path: str = '',
 ):
     strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
-    model = STUNet(1,
-                   105,
+    model = STUNet(input_channels=1,
+                   num_classes=105,
                    depth=[3] * 6,
                    dims=[96 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,

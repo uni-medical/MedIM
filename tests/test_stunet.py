@@ -80,3 +80,22 @@ class TestSTUNet_large():
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
+
+class TestSTUNet_huge():
+
+    def test_stunet_b_simple_example(self):
+        model = create_model("STU-Net-H")
+        input_tensor = torch.randn(1, 1, 128, 128, 128)
+        output_tensor = model(input_tensor)
+        assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
+
+    def test_stunet_b_with_huggingface_checkpoint(self):
+        model = create_model(
+            "STU-Net-H",
+            pretrained=True,
+            checkpoint_path=
+            "https://huggingface.co/ziyanhuang/STU-Net/blob/main/huge_ep4k.model"
+        )
+        input_tensor = torch.randn(1, 1, 128, 128, 128)
+        output_tensor = model(input_tensor)
+        assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
