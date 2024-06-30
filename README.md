@@ -18,8 +18,11 @@ Then you can use this repo to get pytorch models like `timm`:
 ```
 import medim
 
-# use default setting, without pretrain
+# use default setting, without pretraining
 model = medim.create_model("STU-Net-S") 
+
+# use checkpoint pretrained on validated datasets
+model = medim.create_model("STU-Net-B", dataset="BraTS21")
 
 # use local checkpoint
 model = medim.create_model("STU-Net-S", pretrained=True, checkpoint_path="../tests/data/small_ep4k.model") 
@@ -38,7 +41,7 @@ print("Output tensor shape:", output_tensor.shape)
 > set HF_ENDPOINT=https://hf-mirror.com (cmd)
 > $env:HF_ENDPOINT="https://hf-mirror.com" (powershell)
 > ```
-> Besides, you can use `MEDIM_CKPT_DIR` environment variable to set custom path for huggingface model downloading.
+> Besides, you can use `MEDIM_CKPT_DIR` environment variable to set custom path for medim model downloading from huggingface.
 
 
 More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medical-Image-Models/blob/main/examples/quick_start.py).
