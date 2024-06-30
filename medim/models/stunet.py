@@ -74,6 +74,9 @@ class Upsample_Layer_nearest(nn.Module):
         return x
 
 
+DEFAULT_STRIDES = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
+
+
 class STUNet(nn.Module):
 
     def __init__(self,
@@ -196,9 +199,9 @@ class STUNet(nn.Module):
 def create_stunet_small(
     pretrained: bool = False,
     checkpoint_path: str = '',
+    strides=DEFAULT_STRIDES,
     **kwargs,
 ) -> STUNet:
-    strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
     model = STUNet(depth=[1] * 6,
                    dims=[16 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -215,9 +218,9 @@ def create_stunet_small(
 def create_stunet_base(
     pretrained: bool = False,
     checkpoint_path: str = '',
+    strides=DEFAULT_STRIDES,
     **kwargs,
 ) -> STUNet:
-    strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
     model = STUNet(depth=[1] * 6,
                    dims=[32 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -234,9 +237,9 @@ def create_stunet_base(
 def create_stunet_large(
     pretrained: bool = False,
     checkpoint_path: str = '',
+    strides=DEFAULT_STRIDES,
     **kwargs,
 ) -> STUNet:
-    strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
     model = STUNet(depth=[2] * 6,
                    dims=[64 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,
@@ -253,9 +256,9 @@ def create_stunet_large(
 def create_stunet_huge(
     pretrained: bool = False,
     checkpoint_path: str = '',
+    strides=DEFAULT_STRIDES,
     **kwargs,
 ) -> STUNet:
-    strides = [[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [1, 1, 2]]
     model = STUNet(depth=[3] * 6,
                    dims=[96 * x for x in [1, 2, 4, 8, 16, 16]],
                    pool_op_kernel_sizes=strides,

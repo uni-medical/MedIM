@@ -2,9 +2,8 @@ import shutil
 import os
 import torch
 import os.path as osp
-from huggingface_hub import hf_hub_download
-from ._registry import get_pretrained_weights_path, get_pretrained_weights_path_for_hf
-from ._hflinks import get_huggingface_model_cfg
+from ._registry import get_pretrained_weights_path_for_hf
+from ._hf_utils import is_huggingface_connected, set_huggingface_endpoint_status, parse_hf_url
 
 
 def load_nnunet_pretrained_weights(network, fname, verbose=False):
@@ -55,42 +54,22 @@ def load_nnunet_pretrained_weights(network, fname, verbose=False):
             + error_msg)
 
 
-def check_and_download_weights(model_name, pretrained_dataset):
-    hf_cfg = get_huggingface_model_cfg(model_name, pretrained_dataset)
-    ckpt_local_path = get_pretrained_weights_path(model_name,
-                                                  pretrained_dataset)
-    cache_dir = osp.dirname(ckpt_local_path)
-    os.makedirs(cache_dir, exist_ok=True)
-
-    hf_hub_download(repo_id=hf_cfg['repo_id'],
-                    filename=hf_cfg['filename'],
-                    local_dir=cache_dir)
-
-    shutil.move(osp.join(cache_dir, hf_cfg['filename']), ckpt_local_path)
-    if (not osp.exists(ckpt_local_path)):
-        raise FileNotFoundError(
-            "cannot find ckpt, please re-download the pretrained weights")
-    return ckpt_local_path
-
-
-def parse_hf_url(hf_url):
-    hf_url = hf_url.replace("https://huggingface.co/", "")
-    repo_id, model_path = hf_url.split("/blob/")
-    filename = osp.basename(model_path)
-    hf_cfg = dict(
-        repo_id=repo_id,
-        filename=filename,
-    )
-    return hf_cfg
-
-
 def check_and_download_weights_from_hf_url(hf_url):
     hf_cfg = parse_hf_url(hf_url)
     ckpt_local_path = get_pretrained_weights_path_for_hf(
         repo_id=hf_cfg['repo_id'], filename=hf_cfg['filename'])
+    if (osp.exists(ckpt_local_path)):
+        print(f"cache found, use pretrained weights in {ckpt_local_path}")
+        return ckpt_local_path
+
     cache_dir = osp.dirname(ckpt_local_path)
     os.makedirs(cache_dir, exist_ok=True)
 
+    if (not is_huggingface_connected()):
+        set_huggingface_endpoint_status(True)
+    from huggingface_hub import hf_hub_download
+
+    # if cannot connect to hf, use chinese mirror instead
     hf_hub_download(repo_id=hf_cfg['repo_id'],
                     filename=hf_cfg['filename'],
                     local_dir=cache_dir)

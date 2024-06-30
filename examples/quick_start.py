@@ -28,17 +28,6 @@ def stunet_with_local_checkpoint():
     print("Output tensor shape:", output_tensor.shape)
 
 
-def stunet_with_local_checkpoint_and_args():
-    model = medim.create_model(
-        "STU-Net-B",
-        num_classes=7,
-        pretrained=True,
-        checkpoint_path="../tests/data/CT_ORG_base_ep1k.model")
-    input_tensor = torch.randn(1, 1, 128, 128, 128)
-    output_tensor = model(input_tensor)
-    print("Output tensor shape:", output_tensor.shape)
-
-
 def stunet_with_huggingface_checkpoint():
     model = medim.create_model(
         "STU-Net-S",
@@ -50,9 +39,38 @@ def stunet_with_huggingface_checkpoint():
     print("Output tensor shape:", output_tensor.shape)
 
 
+def stunet_with_local_checkpoint_and_args():
+    model = medim.create_model(
+        "STU-Net-B",
+        input_channels=4,
+        num_classes=5,
+        strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]],
+        pretrained=True,
+        checkpoint_path="../tests/data/BraTS21_base_ep1k.model")
+    input_tensor = torch.randn(1, 4, 128, 128, 128)
+    output_tensor = model(input_tensor)
+    print("Output tensor shape:", output_tensor.shape)
+
+
+def stunet_with_dataset_name_Totalseg():
+    model = medim.create_model("STU-Net-B", dataset="TotalSegmentator")
+    input_tensor = torch.randn(1, 1, 128, 128, 128)
+    output_tensor = model(input_tensor)
+    print("Output tensor shape:", output_tensor.shape)
+
+
+def stunet_with_dataset_name_BraTS21():
+    model = medim.create_model("STU-Net-B", dataset="BraTS21")
+    input_tensor = torch.randn(1, 4, 128, 128, 128)
+    output_tensor = model(input_tensor)
+    print("Output tensor shape:", output_tensor.shape)
+
+
 if __name__ == "__main__":
     # stunet_simple_example()
     # stunet_with_local_checkpoint()
     # stunet_with_huggingface_checkpoint()
 
-    stunet_with_local_checkpoint_and_args()
+    # stunet_with_local_checkpoint_and_args()
+    stunet_with_dataset_name_Totalseg()
+    stunet_with_dataset_name_BraTS21()
