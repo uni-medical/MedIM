@@ -31,10 +31,12 @@ def stunet_with_local_checkpoint():
 def stunet_with_local_checkpoint_and_args():
     model = medim.create_model(
         "STU-Net-B",
-        num_classes=7,
+        input_channels=4,
+        num_classes=5,
+        strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]],
         pretrained=True,
-        checkpoint_path="../tests/data/CT_ORG_base_ep1k.model")
-    input_tensor = torch.randn(1, 1, 128, 128, 128)
+        checkpoint_path="../tests/data/BraTS21_base_ep1k.model")
+    input_tensor = torch.randn(1, 4, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
 

@@ -4,6 +4,7 @@ _huggingface_model_links = {
         dict(
             repo_id="ziyanhuang/STU-Net",
             filename="small_ep4k.model",
+            num_classes=105,
         ),
     },
     "STU-Net-B": {
@@ -11,6 +12,7 @@ _huggingface_model_links = {
         dict(
             repo_id="ziyanhuang/STU-Net",
             filename="base_ep4k.model",
+            num_classes=105,
         ),
         "CT-ORG":
         dict(
@@ -24,12 +26,19 @@ _huggingface_model_links = {
             filename="base_ep1k.model",
             num_classes=8,
         ),
+        "BraTS21":
+        dict(
+            repo_id="blueyo0/STU-Net_BraTS21",
+            filename="base_ep1k.model",
+            num_classes=5,
+        ),
     },
     "STU-Net-L": {
         "TotalSegmentator":
         dict(
             repo_id="ziyanhuang/STU-Net",
             filename="large_ep4k.model",
+            num_classes=105,
         ),
     },
     "STU-Net-H": {
@@ -37,6 +46,7 @@ _huggingface_model_links = {
         dict(
             repo_id="ziyanhuang/STU-Net",
             filename="huge_ep4k.model",
+            num_classes=105,
         ),
     },
 }
