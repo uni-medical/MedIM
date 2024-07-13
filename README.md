@@ -6,7 +6,7 @@ A collection of PyTorch medical image pre-trained models. This repository aims t
 ### Setup Environment
 You can use this cmd to install this toolkit via pip:
 ```
-pip install git+https://github.com/uni-medical/Pytorch-Medical-Image-Models.git
+pip install git+https://github.com/uni-medical/pytorch-medical-image-models.git
 ```
 > For developer who wanna adding custom models, you can install via:
 > ```
