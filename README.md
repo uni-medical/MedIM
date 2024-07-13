@@ -1,4 +1,4 @@
-# MedIM: Pytorch-Medical-Image-Models
+# MedIM: Easy-to-use PyTorch Medical Image Models
 
 A collection of PyTorch medical image pre-trained models. This repository aims to provide a unified interface for comparing and deploying these models.
 
