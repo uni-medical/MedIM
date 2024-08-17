@@ -6,12 +6,14 @@ from ._registry import get_pretrained_weights_path_for_hf
 from ._hf_utils import is_huggingface_connected, set_huggingface_endpoint_status, parse_hf_url
 
 
-def load_nnunet_pretrained_weights(network, fname, verbose=False):
+def load_nnunet_pretrained_weights(network, fname):
     # TODO: refactor needed
     if (torch.cuda.is_available()):
-        saved_model = torch.load(fname)
+        saved_model = torch.load(fname, weights_only=False)
     else:
-        saved_model = torch.load(fname, map_location=torch.device('cpu'))
+        saved_model = torch.load(fname,
+                                 weights_only=False,
+                                 map_location=torch.device('cpu'))
     pretrained_dict = saved_model['state_dict']
 
     # if state dict comes from nn.DataParallel but we use non-parallel model here then the state dict keys do not

@@ -156,7 +156,7 @@ class STUNet(nn.Module):
                                                 self.conv_kernel_sizes[-2 - u],
                                                 self.conv_pad_sizes[-2 - u])
                                   for _ in range(depth[-2 - u] - 1)
-                              ])
+                ])
             self.conv_blocks_localization.append(stage)
 
         # outputs

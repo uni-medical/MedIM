@@ -11,7 +11,7 @@ authors = [
 dependencies = [
     "appdirs",
     "numpy<2",
-    "torch>=2.1.2",
+    "torch>=2.4.0+cu118",
     "einops",
     "huggingface_hub",
     "pytest",

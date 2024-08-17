@@ -1,10 +1,10 @@
+from medim.models import create_model
+import torch
 import pytest
 import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import torch
-from medim.models import create_model
 
 
 class TestSTUNet_small():
@@ -53,8 +53,7 @@ class TestSTUNet_small():
         model = create_model(
             "STU-Net-S",
             pretrained=True,
-            checkpoint_path=
-            "https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model"
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model"
         )
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
@@ -73,8 +72,7 @@ class TestSTUNet_base():
         model = create_model(
             "STU-Net-B",
             pretrained=True,
-            checkpoint_path=
-            "https://huggingface.co/ziyanhuang/STU-Net/blob/main/base_ep4k.model"
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/base_ep4k.model"
         )
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
@@ -85,8 +83,7 @@ class TestSTUNet_base():
             "STU-Net-B",
             num_classes=7,
             pretrained=True,
-            checkpoint_path=
-            "https://huggingface.co/blueyo0/STU-Net_CT-ORG/blob/main/base_ep1k.model"
+            checkpoint_path="https://huggingface.co/blueyo0/STU-Net_CT-ORG/blob/main/base_ep1k.model"
         )
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
@@ -105,8 +102,7 @@ class TestSTUNet_large():
         model = create_model(
             "STU-Net-L",
             pretrained=True,
-            checkpoint_path=
-            "https://huggingface.co/ziyanhuang/STU-Net/blob/main/large_ep4k.model"
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/large_ep4k.model"
         )
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
@@ -125,8 +121,7 @@ class TestSTUNet_huge():
         model = create_model(
             "STU-Net-H",
             pretrained=True,
-            checkpoint_path=
-            "https://huggingface.co/ziyanhuang/STU-Net/blob/main/huge_ep4k.model"
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/huge_ep4k.model"
         )
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
