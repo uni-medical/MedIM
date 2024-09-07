@@ -30,8 +30,8 @@ class TestSTUNet_small():
     def test_stunet_s_with_local_checkpoint(self):
         model = create_model("STU-Net-S",
                              pretrained=True,
-                             checkpoint_path=os.path.join(
-                                 "tests", "data", "Totalseg_small_ep4k.model"))
+                             checkpoint_path=os.path.join("tests", "data",
+                                                          "Totalseg_small_ep4k.model"))
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
@@ -46,15 +46,13 @@ class TestSTUNet_small():
         with pytest.raises(RuntimeError):
             create_model("STU-Net-S",
                          pretrained=True,
-                         checkpoint_path=os.path.join(
-                             "tests", "data", "CT_ORG_base_ep1k.model"))
+                         checkpoint_path=os.path.join("tests", "data", "CT_ORG_base_ep1k.model"))
 
     def test_stunet_s_with_huggingface_checkpoint(self):
         model = create_model(
             "STU-Net-S",
             pretrained=True,
-            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model"
-        )
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model")
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
@@ -72,19 +70,14 @@ class TestSTUNet_base():
         model = create_model(
             "STU-Net-B",
             pretrained=True,
-            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/base_ep4k.model"
-        )
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/base_ep4k.model")
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
 
     def test_stunet_b_with_huggingface_checkpoint_and_args(self):
-        model = create_model(
-            "STU-Net-B",
-            num_classes=7,
-            pretrained=True,
-            checkpoint_path="https://huggingface.co/blueyo0/STU-Net_CT-ORG/blob/main/base_ep1k.model"
-        )
+        path = "https://huggingface.co/blueyo0/STU-Net_CT-ORG/blob/main/base_ep1k.model"
+        model = create_model("STU-Net-B", num_classes=7, pretrained=True, checkpoint_path=path)
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 7, 128, 128, 128])
@@ -102,8 +95,7 @@ class TestSTUNet_large():
         model = create_model(
             "STU-Net-L",
             pretrained=True,
-            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/large_ep4k.model"
-        )
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/large_ep4k.model")
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])
@@ -121,8 +113,7 @@ class TestSTUNet_huge():
         model = create_model(
             "STU-Net-H",
             pretrained=True,
-            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/huge_ep4k.model"
-        )
+            checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/huge_ep4k.model")
         input_tensor = torch.randn(1, 1, 128, 128, 128)
         output_tensor = model(input_tensor)
         assert output_tensor.shape == torch.Size([1, 105, 128, 128, 128])

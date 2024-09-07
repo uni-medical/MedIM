@@ -29,18 +29,12 @@ class BasicResBlock(nn.Module):
         self.norm1 = nn.InstanceNorm3d(output_channels, affine=True)
         self.act1 = nn.LeakyReLU(inplace=True)
 
-        self.conv2 = nn.Conv3d(output_channels,
-                               output_channels,
-                               kernel_size,
-                               padding=padding)
+        self.conv2 = nn.Conv3d(output_channels, output_channels, kernel_size, padding=padding)
         self.norm2 = nn.InstanceNorm3d(output_channels, affine=True)
         self.act2 = nn.LeakyReLU(inplace=True)
 
         if use_1x1conv:
-            self.conv3 = nn.Conv3d(input_channels,
-                                   output_channels,
-                                   kernel_size=1,
-                                   stride=stride)
+            self.conv3 = nn.Conv3d(input_channels, output_channels, kernel_size=1, stride=stride)
         else:
             self.conv3 = None
 
@@ -56,20 +50,14 @@ class BasicResBlock(nn.Module):
 
 class Upsample_Layer_nearest(nn.Module):
 
-    def __init__(self,
-                 input_channels,
-                 output_channels,
-                 pool_op_kernel_size,
-                 mode='nearest'):
+    def __init__(self, input_channels, output_channels, pool_op_kernel_size, mode='nearest'):
         super().__init__()
         self.conv = nn.Conv3d(input_channels, output_channels, kernel_size=1)
         self.pool_op_kernel_size = pool_op_kernel_size
         self.mode = mode
 
     def forward(self, x):
-        x = nn.functional.interpolate(x,
-                                      scale_factor=self.pool_op_kernel_size,
-                                      mode=self.mode)
+        x = nn.functional.interpolate(x, scale_factor=self.pool_op_kernel_size, mode=self.mode)
         x = self.conv(x)
         return x
 
@@ -114,12 +102,10 @@ class STUNet(nn.Module):
                           dims[0],
                           self.conv_kernel_sizes[0],
                           self.conv_pad_sizes[0],
-                          use_1x1conv=True),
-            *[
-                BasicResBlock(dims[0], dims[0], self.conv_kernel_sizes[0],
-                              self.conv_pad_sizes[0])
-                for _ in range(depth[0] - 1)
-            ])
+                          use_1x1conv=True), *[
+                              BasicResBlock(dims[0], dims[0], self.conv_kernel_sizes[0],
+                                            self.conv_pad_sizes[0]) for _ in range(depth[0] - 1)
+                          ])
         self.conv_blocks_context.append(stage)
         for d in range(1, num_pool + 1):
             stage = nn.Sequential(
@@ -128,19 +114,18 @@ class STUNet(nn.Module):
                               self.conv_kernel_sizes[d],
                               self.conv_pad_sizes[d],
                               stride=self.pool_op_kernel_sizes[d - 1],
-                              use_1x1conv=True),
-                *[
-                    BasicResBlock(dims[d], dims[d], self.conv_kernel_sizes[d],
-                                  self.conv_pad_sizes[d])
-                    for _ in range(depth[d] - 1)
-                ])
+                              use_1x1conv=True), *[
+                                  BasicResBlock(dims[d], dims[d], self.conv_kernel_sizes[d],
+                                                self.conv_pad_sizes[d])
+                                  for _ in range(depth[d] - 1)
+                              ])
             self.conv_blocks_context.append(stage)
 
         # upsample_layers
         self.upsample_layers = nn.ModuleList()
         for u in range(num_pool):
-            upsample_layer = Upsample_Layer_nearest(
-                dims[-1 - u], dims[-2 - u], pool_op_kernel_sizes[-1 - u])
+            upsample_layer = Upsample_Layer_nearest(dims[-1 - u], dims[-2 - u],
+                                                    pool_op_kernel_sizes[-1 - u])
             self.upsample_layers.append(upsample_layer)
 
         # decoder
@@ -151,19 +136,17 @@ class STUNet(nn.Module):
                               dims[-2 - u],
                               self.conv_kernel_sizes[-2 - u],
                               self.conv_pad_sizes[-2 - u],
-                              use_1x1conv=True), *[
-                                  BasicResBlock(dims[-2 - u], dims[-2 - u],
-                                                self.conv_kernel_sizes[-2 - u],
-                                                self.conv_pad_sizes[-2 - u])
-                                  for _ in range(depth[-2 - u] - 1)
+                              use_1x1conv=True),
+                *[
+                    BasicResBlock(dims[-2 - u], dims[-2 - u], self.conv_kernel_sizes[-2 - u],
+                                  self.conv_pad_sizes[-2 - u]) for _ in range(depth[-2 - u] - 1)
                 ])
             self.conv_blocks_localization.append(stage)
 
         # outputs
         self.seg_outputs = nn.ModuleList()
         for ds in range(len(self.conv_blocks_localization)):
-            self.seg_outputs.append(
-                nn.Conv3d(dims[-2 - ds], num_classes, kernel_size=1))
+            self.seg_outputs.append(nn.Conv3d(dims[-2 - ds], num_classes, kernel_size=1))
 
         self.upscale_logits_ops = []
         for usl in range(num_pool - 1):
@@ -187,9 +170,7 @@ class STUNet(nn.Module):
 
         if self.decoder.deep_supervision:
             return tuple([seg_outputs[-1]] + [
-                i(j) for i, j in zip(
-                    list(self.upscale_logits_ops)[::-1], seg_outputs[:-1]
-                    [::-1])
+                i(j) for i, j in zip(list(self.upscale_logits_ops)[::-1], seg_outputs[:-1][::-1])
             ])
         else:
             return seg_outputs[-1]

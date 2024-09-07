@@ -6,8 +6,7 @@ import appdirs
 _model_entrypoints: Dict[str, Callable[..., Any]] = {
 }  # mapping of model names to architecture entrypoint fns
 _ckpt_root_dir = os.environ["MEDIM_CKPT_DIR"] if (
-    "MEDIM_CKPT_DIR" in os.environ) else appdirs.user_data_dir(
-        "checkpoint", "medim")
+    "MEDIM_CKPT_DIR" in os.environ) else appdirs.user_data_dir("checkpoint", "medim")
 
 
 def register_model(model_name):
@@ -25,8 +24,7 @@ def model_entrypoint(model_name: str) -> Callable[..., Any]:
     return _model_entrypoints[model_name]
 
 
-def get_pretrained_weights_path(model_name: str,
-                                pretrained_dataset: str = 'None'):
+def get_pretrained_weights_path(model_name: str, pretrained_dataset: str = 'None'):
     """Fetch the path of the pretrained weights for specified model name
     """
     return osp.join(_ckpt_root_dir, pretrained_dataset, f"{model_name}.pth")

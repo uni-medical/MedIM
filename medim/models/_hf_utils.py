@@ -81,8 +81,7 @@ _HF_ENDPOINT = "https://hf-mirror.com"
 def get_huggingface_model_cfg(model_name, pretrained_dataset):
     if (model_name not in _huggingface_model_links):
         raise RuntimeError(
-            f"Model {model_name} not found on huggingface, please use the path directly."
-        )
+            f"Model {model_name} not found on huggingface, please use the path directly.")
     if (pretrained_dataset not in _huggingface_model_links[model_name]):
         raise RuntimeError(
             f"Pretrained weights for {model_name} on {pretrained_dataset} not found, please check it out."
@@ -111,9 +110,7 @@ def is_huggingface_connected():
 def set_huggingface_endpoint_status(status):
     if (status):
         os.environ["HF_ENDPOINT"] = _HF_ENDPOINT
-        print(
-            f"cannot connect to huggingface, try to download from {_HF_ENDPOINT}"
-        )
+        print(f"cannot connect to huggingface, try to download from {_HF_ENDPOINT}")
     else:
         if "HF_ENDPOINT" in os.environ:
             del os.environ["HF_ENDPOINT"]

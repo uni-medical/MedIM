@@ -15,11 +15,8 @@ def create_model(
         print("try to load pretrained weights for", dataset)
         pretrained = True
         hf_cfg = get_huggingface_model_cfg(model_name, dataset)
-        checkpoint_path = get_huggingface_model_url(hf_cfg["repo_id"],
-                                                    hf_cfg["filename"])
+        checkpoint_path = get_huggingface_model_url(hf_cfg["repo_id"], hf_cfg["filename"])
         kwargs = hf_cfg["model_config"]
     elif (pretrained):
         print("try to load pretrained weights from", checkpoint_path)
-    return create_fn(pretrained=pretrained,
-                     checkpoint_path=checkpoint_path,
-                     **kwargs)
+    return create_fn(pretrained=pretrained, checkpoint_path=checkpoint_path, **kwargs)

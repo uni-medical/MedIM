@@ -10,10 +10,9 @@ def stunet_simple_example():
 
 
 def stunet_with_local_checkpoint():
-    model = medim.create_model(
-        "STU-Net-S",
-        pretrained=True,
-        checkpoint_path="../tests/data/Totalseg_small_ep4k.model")
+    model = medim.create_model("STU-Net-S",
+                               pretrained=True,
+                               checkpoint_path="../tests/data/Totalseg_small_ep4k.model")
     input_tensor = torch.randn(1, 1, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
@@ -30,13 +29,12 @@ def stunet_with_huggingface_checkpoint():
 
 
 def stunet_with_local_checkpoint_and_args():
-    model = medim.create_model(
-        "STU-Net-B",
-        input_channels=4,
-        num_classes=5,
-        strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]],
-        pretrained=True,
-        checkpoint_path="../tests/data/BraTS21_base_ep1k.model")
+    model = medim.create_model("STU-Net-B",
+                               input_channels=4,
+                               num_classes=5,
+                               strides=[[2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2], [2, 2, 2]],
+                               pretrained=True,
+                               checkpoint_path="../tests/data/BraTS21_base_ep1k.model")
     input_tensor = torch.randn(1, 4, 128, 128, 128)
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)
@@ -57,10 +55,9 @@ def stunet_with_dataset_name_BraTS21():
 
 
 def stunet_with_local_checkpoint_cuda():
-    model = medim.create_model(
-        "STU-Net-S",
-        pretrained=True,
-        checkpoint_path="../tests/data/Totalseg_small_ep4k.model").cuda()
+    model = medim.create_model("STU-Net-S",
+                               pretrained=True,
+                               checkpoint_path="../tests/data/Totalseg_small_ep4k.model").cuda()
     input_tensor = torch.randn(1, 1, 128, 128, 128).cuda()
     output_tensor = model(input_tensor)
     print("Output tensor shape:", output_tensor.shape)

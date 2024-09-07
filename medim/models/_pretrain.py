@@ -11,9 +11,7 @@ def load_nnunet_pretrained_weights(network, fname):
     if (torch.cuda.is_available()):
         saved_model = torch.load(fname, weights_only=False)
     else:
-        saved_model = torch.load(fname,
-                                 weights_only=False,
-                                 map_location=torch.device('cpu'))
+        saved_model = torch.load(fname, weights_only=False, map_location=torch.device('cpu'))
     pretrained_dict = saved_model['state_dict']
 
     # if state dict comes from nn.DataParallel but we use non-parallel model here then the state dict keys do not
@@ -33,8 +31,7 @@ def load_nnunet_pretrained_weights(network, fname):
     error_msg = ""
     for key, _ in model_dict.items():
         if ('conv_blocks' in key):
-            if (key in pretrained_dict) and (model_dict[key].shape
-                                             == pretrained_dict[key].shape):
+            if (key in pretrained_dict) and (model_dict[key].shape == pretrained_dict[key].shape):
                 continue
             else:
                 ok = False
@@ -43,10 +40,7 @@ def load_nnunet_pretrained_weights(network, fname):
 
     # filter unnecessary keys
     if ok:
-        pretrained_dict = {
-            k: v
-            for k, v in pretrained_dict.items() if (k in model_dict)
-        }
+        pretrained_dict = {k: v for k, v in pretrained_dict.items() if (k in model_dict)}
         # 2. overwrite entries in the existing state dict
         model_dict.update(pretrained_dict)
         network.load_state_dict(model_dict)
@@ -58,8 +52,8 @@ def load_nnunet_pretrained_weights(network, fname):
 
 def check_and_download_weights_from_hf_url(hf_url):
     hf_cfg = parse_hf_url(hf_url)
-    ckpt_local_path = get_pretrained_weights_path_for_hf(
-        repo_id=hf_cfg['repo_id'], filename=hf_cfg['filename'])
+    ckpt_local_path = get_pretrained_weights_path_for_hf(repo_id=hf_cfg['repo_id'],
+                                                         filename=hf_cfg['filename'])
     if (osp.exists(ckpt_local_path)):
         print(f"cache found, use pretrained weights in {ckpt_local_path}")
         return ckpt_local_path
@@ -72,21 +66,26 @@ def check_and_download_weights_from_hf_url(hf_url):
     from huggingface_hub import hf_hub_download
 
     # if cannot connect to hf, use chinese mirror instead
-    hf_hub_download(repo_id=hf_cfg['repo_id'],
-                    filename=hf_cfg['filename'],
-                    local_dir=cache_dir)
+    hf_hub_download(repo_id=hf_cfg['repo_id'], filename=hf_cfg['filename'], local_dir=cache_dir)
 
     shutil.move(osp.join(cache_dir, hf_cfg['filename']), ckpt_local_path)
     if (not osp.exists(ckpt_local_path)):
-        raise FileNotFoundError(
-            "cannot find ckpt, please re-download the pretrained weights")
+        raise FileNotFoundError("cannot find ckpt, please re-download the pretrained weights")
     return ckpt_local_path
 
 
-def load_pretrained_weights(model, checkpoint_path):
+def load_pretrained_weights(model, checkpoint_path, mode="nnunet", state_dict_key=None):
     # parse checkpoint_path
     ckpt_local_path = checkpoint_path
     if (checkpoint_path.startswith("https://huggingface.co")):
-        ckpt_local_path = check_and_download_weights_from_hf_url(
-            checkpoint_path)
-    load_nnunet_pretrained_weights(model, ckpt_local_path)
+        ckpt_local_path = check_and_download_weights_from_hf_url(checkpoint_path)
+    if (mode == 'nnunet'):
+        load_nnunet_pretrained_weights(model, ckpt_local_path)
+    elif (mode == 'torch'):
+        with open(ckpt_local_path, "rb") as f:
+            state_dict = torch.load(f, weights_only=True)
+        if (state_dict_key):
+            state_dict = state_dict[state_dict_key]
+        model.load_state_dict(state_dict)
+    else:
+        raise NotImplementedError(f"mode {mode} for weight loading is not implemented")
