@@ -1,8 +1,8 @@
 [project]
 name = "medim"
-version = "0.1.0.dev2"
+version = "0.1.1"
 requires-python = ">=3.9"
-description = "medim is a all-in-one tool for medical image segmentation."
+description = "MedIM is a all-in-one collection for Medical Image Models in PyTorch Style."
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [

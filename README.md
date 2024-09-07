@@ -1,6 +1,6 @@
 # MedIM: Easy-to-use PyTorch Medical Image Models
 
-[![x](https://img.shields.io/badge/Python-3.10-93C5FD)]()
+[![x](https://img.shields.io/badge/Python-3.9|3.10-93C5FD)]()
 [![x](https://img.shields.io/badge/PyTorch-2.4-FCD299)]()
 
 A collection of PyTorch medical image pre-trained models. This repository aims to provide a unified interface for comparing and deploying these models.
