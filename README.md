@@ -5,9 +5,18 @@
 
 A collection of PyTorch medical image pre-trained models. This repository aims to provide a unified interface for comparing and deploying these models.
 
+## Supported Models
+- STU-Net (`STU-Net-S`, `STU-Net-B`, `STU-Net-L`, `STU-Net-H`)
+- SAM-Med3D (`SAM-Med3D`)
+- WIP
+
 ## Quick Start
 ### Setup Environment
 You can use this cmd to install this toolkit via pip:
+```
+pip install medim
+```
+To install from source:
 ```
 pip install git+https://github.com/uni-medical/MedIM.git
 ```
