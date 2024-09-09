@@ -65,7 +65,7 @@ print("Output tensor shape:", output_tensor.shape)
 
 
 
-More examples are in [quick_start](https://github.com/uni-medical/Pytorch-Medical-Image-Models/blob/main/examples/quick_start.py).
+More examples are in [examples](https://github.com/uni-medical/MedIM/tree/main/examples).
 
 ## Roadmap & TO-DO
 
