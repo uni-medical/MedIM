@@ -52,13 +52,8 @@ model = medim.create_model(
             pretrained=True,
             checkpoint_path="https://huggingface.co/ziyanhuang/STU-Net/blob/main/small_ep4k.model") 
 ```
-> **Tips**
-> If network issues are encountered, we recommend using the Hugging Face mirror:
-> ```
-> set HF_ENDPOINT=https://hf-mirror.com (cmd)
-> $env:HF_ENDPOINT="https://hf-mirror.com" (powershell)
-> ```
-> Besides, you can use `MEDIM_CKPT_DIR` environment variable to set custom path for medim model downloading from huggingface.
+> **Tips**: 
+> you can use `MEDIM_CKPT_DIR` environment variable to set custom path for medim model downloading from huggingface.
 
 Then, you can use it as you like.
 ```
