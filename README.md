@@ -30,20 +30,20 @@ import medim
 ```
 You have four ways to create a PyTorch-compatible model with `create_model`:
 
-**1. use the default setting, without pretraining**
+**1. use models without pretraining**
 ```
 model = medim.create_model("STU-Net-S") 
 ```
-**2. use checkpoint pre-trained on validated datasets**
-```
-model = medim.create_model("STU-Net-B", dataset="BraTS21")
-```
-**3. use local checkpoint**
+**2. use local checkpoint**
 ```
 model = medim.create_model(
             "STU-Net-S",
             pretrained=True,
             checkpoint_path="../tests/data/small_ep4k.model") 
+```
+**3. use checkpoint pre-trained on validated datasets (will automatically download it from HuggingFace)**
+```
+model = medim.create_model("STU-Net-B", dataset="BraTS21")
 ```
 **4. use HuggingFace url (will automatically download it from HuggingFace)**
 ```
