@@ -1,6 +1,6 @@
 # MedIM: One-Line Code for Pre-trained Medical Image Models in PyTorch
 
-[![x](https://img.shields.io/badge/Python-3.9|3.10-93C5FD)]()
+[![x](https://img.shields.io/badge/Python-3.9|3.10-A7D8FF)]()
 [![x](https://img.shields.io/badge/PyTorch-2.4-FCD299)]()
 
 A collection of pre-trained medical image models in PyTorch. This repository aims to provide a unified and easy-to-use interface for comparing and deploying these models.
