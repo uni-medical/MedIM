@@ -1,4 +1,4 @@
-# MedIM: One-Line Code for Pre-trained Medical Image Models
+# MedIM: One-Line Code for Pre-trained Medical Image Models in PyTorch
 
 [![x](https://img.shields.io/badge/Python-3.9|3.10-93C5FD)]()
 [![x](https://img.shields.io/badge/PyTorch-2.4-FCD299)]()
