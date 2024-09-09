@@ -1,6 +1,6 @@
 [project]
 name = "medim"
-version = "0.1.1"
+version = "0.1.1.rc1"
 requires-python = ">=3.9"
 description = "MedIM is a all-in-one collection for Medical Image Models in PyTorch Style."
 readme = "README.md"

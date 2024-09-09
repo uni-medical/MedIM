@@ -83,7 +83,7 @@ def load_pretrained_weights(model, checkpoint_path, mode="nnunet", state_dict_ke
         load_nnunet_pretrained_weights(model, ckpt_local_path)
     elif (mode == 'torch'):
         with open(ckpt_local_path, "rb") as f:
-            state_dict = torch.load(f, weights_only=True)
+            state_dict = torch.load(f, weights_only=False)
         if (state_dict_key):
             state_dict = state_dict[state_dict_key]
         model.load_state_dict(state_dict)
