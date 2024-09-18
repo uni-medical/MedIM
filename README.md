@@ -69,7 +69,7 @@ More examples are in [examples](https://github.com/uni-medical/MedIM/tree/main/e
 
 ## Roadmap & TO-DO
 
-- [ ] We will first support more pre-training of STU-Net on different datasets. 
-- [ ] The next step is to support more pre-trained medical image models.
+- [ ] support more pre-training of STU-Net on different datasets. 
+- [ ] support more pre-trained medical image models.
 - [ ] An easy-to-use interface compatible with MONAI/nnU-Net is still under development. Once developed, you will be able to deploy medical image models more elegantly within the Python/PyTorch ecosystem.
 
