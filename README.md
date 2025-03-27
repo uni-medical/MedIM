@@ -1,4 +1,4 @@
-# MedIM: One-Line Code to Get SoTA Pre-trained Medical Image Models in PyTorch
+# MedIM: One-Line Code to Get SoTA Pre-trained Medical Image Models
 
 [![x](https://img.shields.io/badge/Python-3.9|3.10-A7D8FF)]()
 [![x](https://img.shields.io/badge/PyTorch-2.4-FCD299)]()
